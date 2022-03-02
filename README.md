@@ -1,45 +1,96 @@
-### API Documentation
-
-We will start our project by first documenting all of the routes and data models for our API. Following best practices we will use _verbs_ to specify the type of operation being done and _nouns_ when naming endpoints.
+### SwapStation - Server Side
 
 #### Routes
 
-##### Project routes
-
-| HTTP verb | URL                        | Request body | Action                        |
-| --------- | -------------------------- | ------------ | ----------------------------- |
-| GET       | `/api/projects`            | (empty)      | Returns all the projects      |
-| POST      | `/api/projects`            | JSON         | Adds a new project            |
-| GET       | `/api/projects/:projectId` | (empty)      | Returns the specified project |
-| PUT       | `/api/projects/:projectId` | JSON         | Edits the specified project   |
-| DELETE    | `/api/projects/:projectId` | (empty)      | Deletes the specified project |
-
-##### Task routes
+##### User routes
 
 | HTTP verb | URL                  | Request body | Action                     |
 | --------- | -------------------- | ------------ | -------------------------- |
-| POST      | `/api/tasks`         | JSON         | Adds a new task            |
+| GET       | `/api/users`         | (empty)      | Returns all the users      |
+| POST      | `/api/users`         | (empty)      | Adds a new users           |
+| GET       | `/api/users/:userId` | (empty)      | Returns the specified user |
+| POST      | `/api/users/:userId` | (empty)      | Edits the specified user   |
+| DELETE    | `/api/users/:userId` | (empty)      | Deletes the specified user |
+
+##### Product routes
+
+| HTTP verb | URL                  | Request body | Action                        |
+| --------- | -------------------- | ------------ | ----------------------------- |
+| GET       | `/api/games`         | (empty)      | Returns all the products      |
+| POST      | `/api/games`         | (empty)      | Adds a new product            |
+| GET       | `/api/games/:gameId` | (empty)      | Returns the specified product |
+| POST      | `/api/games/:gameId` | (empty)      | Edits the specified product   |
+| DELETE    | `/api/games/:gameId` | (empty)      | Deletes the specified product |
+
+##### Exchange routes
+
+| HTTP verb | URL              | Request body | Action                    |
+| --------- | ---------------- | ------------ | ------------------------- |
+| GET       | `/api/exchanges` | (empty)      | Returns all the exchanges |
+
+##### Report routes
+
+| HTTP verb | URL            | Request body | Action                  |
+| --------- | -------------- | ------------ | ----------------------- |
+| GET       | `/api/reports` | (empty)      | Returns all the reports |
 
 <hr>
 
 #### Models
 
-##### Project Model
+##### User Model
 
 ```js
 {
-  title: String,
-  description: String,
-  tasks: [ { type: Schema.Types.ObjectId, ref: 'Task' } ]
+  username: String,
+  password: String,
+  email: String,
+  firstName: String,
+  lastName: String,
+  address: String,
+  city: String,
+  zipCode: Number,
+  phoneNumber: Number,
+  dateOfBirth: Date,
+  listOfProducts: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
+  isModerator: Boolean
 }
 ```
 
-##### Task Model
+##### Product Model
 
 ```js
 {
   title: String,
+  category: enum ['PS1', 'PS2', 'PS3', 'PS4', 'PS5', 'PSP', 'PSVita'],
+  condition: enum ['new', 'used – like new', 'used – good', 'used - fair'],
   description: String,
-  project: { type: Schema.Types.ObjectId, ref: 'Project' }
+  isPurchasable: Boolean,
+  purchasePrice: Number,
+  isReported: Boolean,
+  seller: [ { type: Schema.Types.ObjectId, ref: 'User' } ]
+}
+```
+
+##### Exchange Model
+
+```js
+{
+  dateOfSwap: Date,
+  seller: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
+  buyer: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
+  product: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
+  status: enum ['Approved', 'Pending', 'Rejected']
+}
+```
+
+##### Report Model
+
+```js
+{
+  dateOfReport: Date,
+  reportedBy: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
+  reportedProduct: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
+  status: enum ['Open', 'Resolved', 'Rejected']
 }
 ```
