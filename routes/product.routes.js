@@ -5,34 +5,40 @@ const mongoose = require("mongoose");
 const Product = require("../models/Product.model");
 const User = require("../models/User.model");
 
-// GET create products page:
-router.get("/products/create", (req, res, next) => {
-  Product.find()
-    .then((allProducts) => res.json(allProducts))
-    .catch((err) => res.json(err));
-});
-
 // POST a new product:
-router.post("/products/create", (req, res, next) => {
-  const { title, category, condition, description, purchasable, price } =
-    req.body;
-
-  Product.create({
+router.post("/products", (req, res, next) => {
+  const {
     title,
+    imageUrl,
     category,
     condition,
     description,
     purchasable,
     price,
+    seller,
+  } = req.body;
+
+  Product.create({
+    title,
+    imageUrl,
+    category,
+    condition,
+    description,
+    purchasable,
+    price,
+    seller,
   })
-    .then((response) => res.json(response))
+    .then((response) => {
+      console.log("RESPONSE TEST:", response);
+      res.json(response);
+    })
     .catch((err) => res.json(err));
 });
 
 // GET all products:
 router.get("/products", (req, res, next) => {
   Product.find()
-    // .populate("tasks")
+    .populate("seller")
     .then((allProducts) => res.json(allProducts))
     .catch((err) => res.json(err));
 });
@@ -49,7 +55,7 @@ router.get("/products/:productId", (req, res, next) => {
   // Each Product document has `tasks` array holding `_id`s of Task documents
   // We use .populate() method to get swap the `_id`s for the actual Task documents
   Product.findById(productId)
-    // .populate("tasks")
+    .populate("seller")
     .then((product) => res.status(200).json(product))
     .catch((error) => res.json(error));
 });

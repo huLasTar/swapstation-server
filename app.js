@@ -18,6 +18,9 @@ app.use("/auth", authRouter);
 const productRouter = require("./routes/product.routes");
 app.use("/api", isAuthenticated, productRouter);
 
+const exchangeRouter = require("./routes/exchange.routes");
+app.use("/api", isAuthenticated, exchangeRouter);
+
 const reportRouter = require("./routes/report.routes");
 app.use("/api", isAuthenticated, reportRouter);
 
