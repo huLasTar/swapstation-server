@@ -12,9 +12,6 @@ require("./config")(app);
 const allRoutes = require("./routes");
 app.use("/api", allRoutes);
 
-const authRouter = require("./routes/auth.routes");
-app.use("/auth", authRouter);
-
 const productRouter = require("./routes/product.routes");
 app.use("/api", productRouter);
 
@@ -23,6 +20,9 @@ app.use("/api", isAuthenticated, exchangeRouter);
 
 const reportRouter = require("./routes/report.routes");
 app.use("/api", isAuthenticated, reportRouter);
+
+const authRouter = require("./routes/auth.routes");
+app.use("/auth", authRouter);
 
 require("./error-handling")(app);
 
