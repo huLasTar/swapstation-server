@@ -5,8 +5,9 @@ const exchangeSchema = new Schema({
   dateOfSwap: { type: Date, default: Date.now },
   seller: { type: Schema.Types.ObjectId, ref: "User" },
   buyer: { type: Schema.Types.ObjectId, ref: "User" },
-  sellItem: { type: Schema.Types.ObjectId, ref: "Product" },
-  buyItem: { type: Schema.Types.ObjectId, ref: "Product" },
+  sellerItem: { type: Schema.Types.ObjectId, ref: "Product" },
+  buyerItem: { type: Schema.Types.ObjectId, ref: "Product" },
+  comment: String,
   status: {
     type: String,
     enum: ["Approved", "Pending", "Rejected"],
