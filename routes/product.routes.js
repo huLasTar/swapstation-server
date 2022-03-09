@@ -28,10 +28,7 @@ router.post("/products", (req, res, next) => {
     price,
     seller,
   })
-    .then((response) => {
-      console.log("RESPONSE TEST:", response);
-      res.json(response);
-    })
+    .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
 
