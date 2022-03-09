@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-const { isAuthenticated } = require("./middleware/jwt.middleware");
-
 const Product = require("../models/Product.model");
 const User = require("../models/User.model");
 
@@ -43,7 +41,7 @@ router.get("/products", (req, res, next) => {
 });
 
 // GET a specific product by ID:
-router.get("/products/:productId", isAuthenticated, (req, res, next) => {
+router.get("/products/:productId", (req, res, next) => {
   const { productId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(productId)) {
