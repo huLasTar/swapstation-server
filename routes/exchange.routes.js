@@ -8,9 +8,18 @@ const User = require("../models/User.model");
 
 // POST /api/exchanges  -  Creates a new exchange
 router.post("/exchanges", (req, res, next) => {
-  const { dateOfSwap, seller, buyer } = req.body;
+  const { dateOfSwap, seller, buyer, sellerItem, buyerItem, comment, status } =
+    req.body;
 
-  Exchange.create({ dateOfSwap, seller, buyer, sellItem: [], buyItem: [] })
+  Exchange.create({
+    dateOfSwap,
+    seller,
+    buyer,
+    sellerItem,
+    buyerItem,
+    comment,
+    status,
+  })
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
@@ -18,7 +27,7 @@ router.post("/exchanges", (req, res, next) => {
 // GET /api/exchanges -  Retrieves all of the exchanges
 router.get("/exchanges", (req, res, next) => {
   Exchange.find()
-    .populate("sellItem buyItem")
+    .populate("sellerItem buyerItem")
     .then((allExchanges) => res.json(allExchanges))
     .catch((err) => res.json(err));
 });
@@ -35,7 +44,7 @@ router.get("/exchanges/:exchangeId", (req, res, next) => {
   // Each Exchange document has `tasks` array holding `_id`s of Task documents
   // We use .populate() method to get swap the `_id`s for the actual Task documents
   Exchange.findById(exchangeId)
-    .populate("sellItem buyItem")
+    .populate("sellerItem buyerItem")
     .then((exchange) => res.status(200).json(exchange))
     .catch((error) => res.json(error));
 });
