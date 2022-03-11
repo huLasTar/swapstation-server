@@ -20,23 +20,19 @@ Besides that, they also can buy and sell products on the portal, but the main go
 
 #### User Personas
 
-<b>Leslie:</b> Leslie has a collection of console video games. He wants to refresh his collection with new titles and also gets rid of some games.<br />
-Leslie is an authenticated <b>member</b>.
-<b>David:</b> David also has some games, and he wants to swap them to new ones.<br />
-David is an authenticated <b>member</b>.
-<b>Carla:</b> Carla has a son who get bored by his games. Carla wants to share her son's game collection to replace the existing titles with new ones.
-Carla is also a <b>member</b>. She needs to register to create products.<br />
-<b>Peter:</b> Peter is not registered, so he can see the available products only.<br />
-Peter is a <b>visitor</b> who is able to visit the website and see the products.<br />
+- <b>Leslie:</b> Leslie has a collection of console video games. He wants to refresh his collection with new titles and also gets rid of some games. Leslie is an authenticated <b>member</b>.
+- <b>David:</b> David also has some games, and he wants to swap them to new ones. David is an authenticated <b>member</b>.
+- <b>Carla:</b> Carla has a son who get bored by his games. Carla wants to share her son's game collection to replace the existing titles with new ones. Carla is also a <b>member</b>. She needs to register to create products.
+- <b>Peter:</b> Peter is not registered, so he can see the available products only. Peter is a <b>visitor</b> who is able to visit the website and see the products.
 
 #### User Stories
 
-As a visitor, I can browse the available games (products) and create user profile.
-As a member, I can log into the system.
-As a member, I can create, edit and delete my products.
-As a member, I can send trade offers to other users.
-As a member, I can report other users’ listings.
-As a super user, I can modify anything on database level.
+- As a visitor, I can browse the available games (products) and create user profile.
+- As a member, I can log into the system.
+- As a member, I can create, edit and delete my products.
+- As a member, I can send trade offers to other users.
+- As a member, I can report other users’ listings.
+- As a super user, I can modify anything on database level.
 
 <hr>
 
