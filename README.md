@@ -1,4 +1,4 @@
-# SwapStation - Client Side
+# SwapStation - Server Side
 
 <hr>
 
