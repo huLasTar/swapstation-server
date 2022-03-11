@@ -1,44 +1,63 @@
-### SwapStation - Server Side
-
-#### Routes
-
-##### User routes
-
-| HTTP verb | URL                  | Request body | Action                     |
-| --------- | -------------------- | ------------ | -------------------------- |
-| GET       | `/api/users`         | (empty)      | Returns all the users      |
-| POST      | `/api/users`         | (empty)      | Adds a new users           |
-| GET       | `/api/users/:userId` | (empty)      | Returns the specified user |
-| POST      | `/api/users/:userId` | (empty)      | Edits the specified user   |
-| DELETE    | `/api/users/:userId` | (empty)      | Deletes the specified user |
-
-##### Product routes
-
-| HTTP verb | URL                  | Request body | Action                        |
-| --------- | -------------------- | ------------ | ----------------------------- |
-| GET       | `/api/games`         | (empty)      | Returns all the products      |
-| POST      | `/api/games`         | (empty)      | Adds a new product            |
-| GET       | `/api/games/:gameId` | (empty)      | Returns the specified product |
-| POST      | `/api/games/:gameId` | (empty)      | Edits the specified product   |
-| DELETE    | `/api/games/:gameId` | (empty)      | Deletes the specified product |
-
-##### Exchange routes
-
-| HTTP verb | URL              | Request body | Action                    |
-| --------- | ---------------- | ------------ | ------------------------- |
-| GET       | `/api/exchanges` | (empty)      | Returns all the exchanges |
-
-##### Report routes
-
-| HTTP verb | URL            | Request body | Action                  |
-| --------- | -------------- | ------------ | ----------------------- |
-| GET       | `/api/reports` | (empty)      | Returns all the reports |
+# SwapStation - Client Side
 
 <hr>
 
-#### Models
+<!-- ABOUT THE PROJECT -->
 
-##### User Model
+### About
+
+SwapStation is an e-commerce system for gamers who want to avoid the unnecessary expenses for the same game experience (if they don’t want to buy games on retail prices).
+
+Gamers (members) can create accounts and upload their original discs, browse other gamers’ listings and send trade offers each other.
+
+Besides that, they also can buy and sell products on the portal, but the main goal is the swap (pay for the shipping only).
+
+<hr>
+
+<!--USER STORIES-->
+
+### User Stories
+
+#### User Personas
+
+<b>Leslie:</b> Leslie has a collection of console video games. He wants to refresh his collection with new titles and also gets rid of some games.<br />
+Leslie is an authenticated <b>member</b>.
+<b>David:</b> David also has some games, and he wants to swap them to new ones.<br />
+David is an authenticated <b>member</b>.
+<b>Carla:</b> Carla has a son who get bored by his games. Carla wants to share her son's game collection to replace the existing titles with new ones.
+Carla is also a <b>member</b>. She needs to register to create products.<br />
+<b>Peter:</b> Peter is not registered, so he can see the available products only.<br />
+Peter is a <b>visitor</b> who is able to visit the website and see the products.<br />
+
+#### User Stories
+
+As a visitor, I can browse the available games (products) and create user profile.
+As a member, I can log into the system.
+As a member, I can create, edit and delete my products.
+As a member, I can send trade offers to other users.
+As a member, I can report other users’ listings.
+As a super user, I can modify anything on database level.
+
+<hr>
+
+<!--TECHNOLOGIES USED-->
+
+### Technologies used
+
+- [ReactJS](https://reactjs.org/)
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/")
+- [Bootstrap](https://getbootstrap.com/)
+- [HTML](http://www.html5.com/)
+- [CSS](https://www.w3schools.com/w3css/defaulT.asp)
+
+<hr>
+
+<!--MODELS-->
+
+### Models
+
+#### User Model
 
 ```js
 {
@@ -51,46 +70,116 @@
   city: String,
   zipCode: Number,
   phoneNumber: Number,
-  dateOfBirth: Date,
   listOfProducts: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
   isModerator: Boolean
 }
 ```
 
-##### Product Model
+#### Product Model
 
 ```js
 {
   title: String,
-  category: enum ['PS1', 'PS2', 'PS3', 'PS4', 'PS5', 'PSP', 'PSVita'],
-  condition: enum ['new', 'used – like new', 'used – good', 'used - fair'],
+  imageUrl: String,
+  category: { type: String, enum: ["PS5", "PS4", "PS3", "PS2", "PS1", "PSVita", "PSP"] },
+  condition: { type: String, enum: ["new", "usednew", "usedgood", "usedfair"] },
   description: String,
-  isPurchasable: Boolean,
-  purchasePrice: Number,
-  isReported: Boolean,
-  seller: [ { type: Schema.Types.ObjectId, ref: 'User' } ]
+  purchasable: Boolean,
+  price: Number,
+  reported: Boolean,
+  seller: { type: Schema.Types.ObjectId, ref: "User" }
 }
 ```
 
-##### Exchange Model
+#### Exchange Model
 
 ```js
 {
   dateOfSwap: Date,
-  seller: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
-  buyer: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
-  product: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
-  status: enum ['Approved', 'Pending', 'Rejected']
+  seller: { type: Schema.Types.ObjectId, ref: "User" },
+  buyer: { type: Schema.Types.ObjectId, ref: "User" },
+  sellerItem: { type: Schema.Types.ObjectId, ref: "Product" },
+  buyerItem: { type: Schema.Types.ObjectId, ref: "Product" },
+  comment: String,
+  status: { type: String, enum: ["Approved", "Pending", "Rejected"] }
 }
 ```
 
-##### Report Model
+#### Report Model
 
 ```js
 {
   dateOfReport: Date,
-  reportedBy: [ { type: Schema.Types.ObjectId, ref: 'User' } ],
-  reportedProduct: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
-  status: enum ['Open', 'Resolved', 'Rejected']
+  reportedBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  reportedProduct: { type: Schema.Types.ObjectId, ref: 'Product' },
+  status: { type: String, enum: ["Open", "Resolved", "Rejected"] }
 }
 ```
+
+<hr>
+
+<!--SERVER ROUTES-->
+
+### Server routes
+
+| HTTP verb | URL                                      | Request body | Action                                 |
+| --------- | ---------------------------------------- | ------------ | -------------------------------------- |
+| POST      | `/api/report/:id`                        | JSON         | Posting report                         |
+| --------- | ---------------------------------------- | ------------ | -------------------------------------- |
+| GET       | `/api/products`                          | (empty)      | Get all products                       |
+| POST      | `/api/products`                          | JSON         | Add a new product                      |
+| GET       | `/api/products/:productId`               | (empty)      | Get the selected product               |
+| PUT       | `/api/products/:productId/edit`          | JSON         | Edit product details                   |
+| PATCH     | `/api/products/:productId/exchange`      | (empty)      | Add new trade offer                    |
+| DELETE    | `/api/:toolId/delete`                    | (empty)      | Delete the selected product by ID      |
+| --------- | ---------------------------------------- | ------------ | -------------------------------------- |
+| GET       | `/api/signup`                            | (empty)      | Get signup form                        |
+| POST      | `/api/signup`                            | JSON         | Post signup form (registration)        |
+| GET       | `/api/login`                             | (empty)      | Get login form                         |
+
+<hr>
+
+<!--Project Link-->
+
+### Link to project
+
+<a href="https://swapstation.netlify.app/">SwapStation</a>
+
+<hr>
+
+<!--Future Work-->
+
+### Future Work
+
+- Bugfixes in the Swap Offer system
+- Better way to manage reported products
+- Product search
+- Messaging system to the users
+- Email notification system
+- Watchlist / Wishlist
+
+<hr>
+
+<!--RESOURCES-->
+
+### Resources
+
+- <a href="https://www.ironhack.com/">Ironhack Student Portal</a>
+- <a href="https://www.npmjs.com/">npm</a>
+- <a href="https://stackoverflow.com/">Stack Overflow</a>
+
+<hr>
+
+<!--TEAM MEMBERS-->
+
+### Team members
+
+- László Tarnai
+
+<hr>
+
+<!-- ACKNOWLEDGMENTS -->
+
+### Acknowledgments
+
+- [Ironhack](https://www.ironhack.com/en)
