@@ -44,12 +44,9 @@ As a super user, I can modify anything on database level.
 
 ### Technologies used
 
-- [ReactJS](https://reactjs.org/)
 - [Node.js](https://nodejs.org/)
+- [JavaScript](https://www.javascript.com/)
 - [npm](https://www.npmjs.com/")
-- [Bootstrap](https://getbootstrap.com/)
-- [HTML](http://www.html5.com/)
-- [CSS](https://www.w3schools.com/w3css/defaulT.asp)
 
 <hr>
 
@@ -165,6 +162,7 @@ As a super user, I can modify anything on database level.
 ### Resources
 
 - <a href="https://www.ironhack.com/">Ironhack Student Portal</a>
+- <a href="https://reactjs.org/">ReactJS Documentation</a>
 - <a href="https://www.npmjs.com/">npm</a>
 - <a href="https://stackoverflow.com/">Stack Overflow</a>
 
